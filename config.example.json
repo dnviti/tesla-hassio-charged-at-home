@@ -1,0 +1,24 @@
+{
+    "features": {
+      "use_database": true,
+      "send_home_assistant": true,
+      "send_telegram": true
+    },
+    "database": {
+      "type": "mysql",
+      "host": "localhost",
+      "user": "root",
+      "password": "yourpassword",
+      "dbname": "yourdbname"
+    },
+    "telegram": {
+      "token": "your_telegram_token",
+      "chat_id": "your_chat_id"
+    },
+    "home_assistant": {
+      "base_url": "https://homeassistant.local:8123",
+      "api_token": "your_home_assistant_token",
+      "filter_entity_ids": "your_filter_entity_ids",
+      "start_date": "2023-01-01"
+    }
+  }
