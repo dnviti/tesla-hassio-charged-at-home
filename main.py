@@ -343,7 +343,7 @@ if config:
 
     if base_url and filter_entity_ids and start_date:
         # Construct the API URL using the loaded query parameters
-        api_url = f"{base_url}/history/period/{start_date}?minimal_response&filter_entity_id={filter_entity_ids}"
+        api_url = f"{base_url}/history/period/{start_date}?filter_entity_id={filter_entity_ids}"
 
         # Get summarized data (unchanged)
         result_json = get_summary_of_state(api_url, API_TOKEN)
