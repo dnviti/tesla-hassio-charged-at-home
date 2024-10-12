@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  energy-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: energy-app
+    environment:
+      - USE_DATABASE=${USE_DATABASE:-true}
+      - SEND_HOME_ASSISTANT=${SEND_HOME_ASSISTANT:-true}
+      - SEND_TELEGRAM=${SEND_TELEGRAM:-false}
+      - DB_TYPE=${DB_TYPE:-sqlite}
+      - DB_PATH=${DB_PATH:-/usr/src/app/energy.db}
+      - MYSQL_USER=${MYSQL_USER:-root}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-yourpassword}
+      - MYSQL_HOST=${MYSQL_HOST:-mysql}
+      - MYSQL_DB=${MYSQL_DB:-energy_db}
+      - HOME_ASSISTANT_BASE_URL=${HOME_ASSISTANT_BASE_URL:-https://homeassistant.local:8123}
+      - HOME_ASSISTANT_TOKEN=${HOME_ASSISTANT_TOKEN}
+      - FILTER_ENTITY_IDS=${FILTER_ENTITY_IDS:-sensor.energy_consumption}
+      - START_DATE=${START_DATE:-2023-01-01}
+      - TELEGRAM_TOKEN=${TELEGRAM_TOKEN}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
+    volumes:
+      - ./config.json:/usr/src/app/config.json   # Mount the configuration file
+    depends_on:
+      - mysql                                    # Ensure MySQL is up before energy-app is started
+    restart: always
+  
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: yourpassword           # Change this password (same as config.json)
+      MYSQL_DATABASE: energy_db                   # Create database on start-up
+      MYSQL_USER: root                            # User for MySQL
+      MYSQL_PASSWORD: yourpassword                # Password for MySQL user
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql_data:/var/lib/mysql               # Store MySQL data on the host
+    restart: always
+
+networks:
+  default:
+    external:
+      name: my_network
