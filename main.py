@@ -32,29 +32,34 @@ def load_config(config_path='config.json'):
     def get_config_param(param_name, default=None):
         return os.getenv(param_name, config.get(param_name, default))
 
+    features_config = config.get("features", {})
+    database_config = config.get("database", {})
+    home_assistant_config = config.get("home_assistant", {})
+    telegram_config = config.get("telegram", {})
+
     return {
         "features": {
-            "use_database": get_config_param("USE_DATABASE", config["features"].get("use_database", False)),
-            "send_home_assistant": get_config_param("SEND_HOME_ASSISTANT", config["features"].get("send_home_assistant", False)),
-            "send_telegram": get_config_param("SEND_TELEGRAM", config["features"].get("send_telegram", False)),
+            "use_database": get_config_param("USE_DATABASE", features_config.get("use_database", False)),
+            "send_home_assistant": get_config_param("SEND_HOME_ASSISTANT", features_config.get("send_home_assistant", False)),
+            "send_telegram": get_config_param("SEND_TELEGRAM", features_config.get("send_telegram", False)),
         },
         "database": {
-            "type": get_config_param("DB_TYPE", config.get("database", {}).get("type")),
-            "db_path": get_config_param("DB_PATH", config.get("database", {}).get("db_path", "local_energy_db.sqlite")),
-            "mysql_user": get_config_param("MYSQL_USER", config.get("database", {}).get("mysql_user")),
-            "mysql_password": get_config_param("MYSQL_PASSWORD", config.get("database", {}).get("mysql_password")),
-            "mysql_host": get_config_param("MYSQL_HOST", config.get("database", {}).get("mysql_host")),
-            "mysql_db": get_config_param("MYSQL_DB", config.get("database", {}).get("mysql_db")),
+            "type": get_config_param("DB_TYPE", database_config.get("type")),
+            "db_path": get_config_param("DB_PATH", database_config.get("db_path", "local_energy_db.sqlite")),
+            "mysql_user": get_config_param("MYSQL_USER", database_config.get("mysql_user")),
+            "mysql_password": get_config_param("MYSQL_PASSWORD", database_config.get("mysql_password")),
+            "mysql_host": get_config_param("MYSQL_HOST", database_config.get("mysql_host")),
+            "mysql_db": get_config_param("MYSQL_DB", database_config.get("mysql_db")),
         },
         "home_assistant": {
-            "api_token": get_config_param("HOME_ASSISTANT_TOKEN", config.get("home_assistant", {}).get("api_token")),
-            "base_url": get_config_param("HOME_ASSISTANT_BASE_URL", config.get("home_assistant", {}).get("base_url")),
-            "filter_entity_ids": get_config_param("FILTER_ENTITY_IDS", config.get("api", {}).get("filter_entity_ids")),
-            "start_date": get_config_param("START_DATE", config.get("api", {}).get("start_date")),
+            "api_token": get_config_param("HOME_ASSISTANT_TOKEN", home_assistant_config.get("api_token")),
+            "base_url": get_config_param("HOME_ASSISTANT_BASE_URL", home_assistant_config.get("base_url")),
+            "filter_entity_ids": get_config_param("FILTER_ENTITY_IDS", home_assistant_config.get("filter_entity_ids")),
+            "start_date": get_config_param("START_DATE", home_assistant_config.get("start_date")),
         },
         "telegram": {
-            "token": get_config_param("TELEGRAM_TOKEN", config.get("telegram", {}).get("token")),
-            "chat_id": get_config_param("TELEGRAM_CHAT_ID", config.get("telegram", {}).get("chat_id")),
+            "token": get_config_param("TELEGRAM_TOKEN", telegram_config.get("token")),
+            "chat_id": get_config_param("TELEGRAM_CHAT_ID", telegram_config.get("chat_id")),
         }
     }
 
