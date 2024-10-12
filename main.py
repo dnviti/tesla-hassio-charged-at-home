@@ -49,12 +49,12 @@ def load_config(config_path='config.json'):
         "home_assistant": {
             "api_token": get_config_param("HOME_ASSISTANT_TOKEN", config.get("home_assistant", {}).get("api_token")),
             "base_url": get_config_param("HOME_ASSISTANT_BASE_URL", config.get("home_assistant", {}).get("base_url")),
-            "filter_entity_ids": get_config_param("filter_entity_ids", config.get("api", {}).get("filter_entity_ids")),
-            "start_date": get_config_param("start_date", config.get("api", {}).get("start_date")),
+            "filter_entity_ids": get_config_param("FILTER_ENTITY_IDS", config.get("api", {}).get("filter_entity_ids")),
+            "start_date": get_config_param("START_DATE", config.get("api", {}).get("start_date")),
         },
         "telegram": {
             "token": get_config_param("TELEGRAM_TOKEN", config.get("telegram", {}).get("token")),
-            "chat_id": get_config_param("TELEGRAM_chat_id", config.get("telegram", {}).get("chat_id")),
+            "chat_id": get_config_param("TELEGRAM_CHAT_ID", config.get("telegram", {}).get("chat_id")),
         }
     }
 
@@ -338,7 +338,7 @@ if config:
 
     if base_url and filter_entity_ids and start_date:
         # Construct the API URL using the loaded query parameters
-        api_url = f"{base_url}/{start_date}?filter_entity_ids={filter_entity_ids}"
+        api_url = f"{base_url}/history/period/{start_date}?filter_entity_ids={filter_entity_ids}"
 
         # Get summarized data (unchanged)
         result_json = get_summary_of_state(api_url, API_TOKEN)
