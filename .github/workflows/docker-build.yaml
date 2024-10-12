@@ -36,9 +36,9 @@ jobs:
     # Step 4: Build Docker image
     - name: Build Docker image
       run: |
-        docker build -t ghcr.io/${{ github.repository }}/my-app:latest .
+        docker build -t ghcr.io/${{ github.repository }}/energy-app:latest .
 
     # Step 5: Push Docker image to GitHub Container Registry
     - name: Push Docker image
       run: |
-        docker push ghcr.io/${{ github.repository }}/my-app:latest
+        docker push ghcr.io/${{ github.repository }}/energy-app:latest
