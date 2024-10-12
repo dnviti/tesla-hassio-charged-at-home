@@ -7,6 +7,7 @@ from collections import defaultdict
 from datetime import datetime, timedelta
 import os
 import telebot
+from datetime import datetime
 
 ### Utility Functions ###
 
@@ -54,8 +55,7 @@ def load_config(config_path='config.json'):
         "home_assistant": {
             "api_token": get_config_param("HOME_ASSISTANT_TOKEN", home_assistant_config.get("api_token")),
             "base_url": get_config_param("HOME_ASSISTANT_BASE_URL", home_assistant_config.get("base_url")),
-            "filter_entity_ids": get_config_param("FILTER_ENTITY_IDS", home_assistant_config.get("filter_entity_ids")),
-            "start_date": get_config_param("START_DATE", home_assistant_config.get("start_date")),
+            "filter_entity_ids": get_config_param("FILTER_ENTITY_IDS", home_assistant_config.get("filter_entity_ids"))
         },
         "telegram": {
             "token": get_config_param("TELEGRAM_TOKEN", telegram_config.get("token")),
@@ -339,7 +339,9 @@ if config:
     base_url = api_params.get("base_url")
     API_TOKEN = api_params.get("api_token")
     filter_entity_ids = api_params.get("filter_entity_ids")
-    start_date = api_params.get("start_date")
+
+    # Generate the current date in ISO format
+    start_date = datetime.now().isoformat()  # This will give you the current date and time
 
     if base_url and filter_entity_ids and start_date:
         # Construct the API URL using the loaded query parameters
