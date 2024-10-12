@@ -46,10 +46,10 @@ def load_config(config_path='config.json'):
         "database": {
             "type": get_config_param("DB_TYPE", database_config.get("type")),
             "db_path": get_config_param("DB_PATH", database_config.get("db_path", "local_energy_db.sqlite")),
-            "mysql_user": get_config_param("MYSQL_USER", database_config.get("mysql_user")),
-            "mysql_password": get_config_param("MYSQL_PASSWORD", database_config.get("mysql_password")),
-            "mysql_host": get_config_param("MYSQL_HOST", database_config.get("mysql_host")),
-            "mysql_db": get_config_param("MYSQL_DB", database_config.get("mysql_db")),
+            "user": get_config_param("MYSQL_USER", database_config.get("user")),
+            "password": get_config_param("MYSQL_PASSWORD", database_config.get("password")),
+            "host": get_config_param("MYSQL_HOST", database_config.get("host")),
+            "dbname": get_config_param("MYSQL_DB", database_config.get("dbname")),
         },
         "home_assistant": {
             "api_token": get_config_param("HOME_ASSISTANT_TOKEN", home_assistant_config.get("api_token")),

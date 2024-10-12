@@ -6,6 +6,7 @@
     },
     "database": {
       "type": "mysql",
+      "db_path": "local_energy_db.sqlite",
       "host": "localhost",
       "user": "root",
       "password": "yourpassword",
