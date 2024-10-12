@@ -289,13 +289,13 @@ def get_summary_of_state(api_url, api_token):
 
         for entity in record:
             # Handle device_tracker entry (Check if the device is at home)
-            if entity["entity_id"] == "device_tracker.corrosivetesla_location":
+            if str(entity["entity_id"]).startswith("device_tracker"):
                 last_reported_date = extract_date_from_iso(entity["last_reported"])
                 if entity["state"] == "home" and last_reported_date:
                     date_at_home = last_reported_date  # Set at_home flag for this date
 
             # Handle sensor.corrosivetesla_charge_energy_added entry (energy added)
-            elif entity["entity_id"] == "sensor.corrosivetesla_charge_energy_added":
+            elif str(entity["entity_id"]).startswith("sensor"):
                 last_reported_date = extract_date_from_iso(entity["last_reported"])
                 try:
                     energy_value = float(entity["state"])
